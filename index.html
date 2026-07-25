@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#126b51">
+<title>CAISSE RONKALA OROUNGOU</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<input type="radio" name="tab" id="tab-dashboard" checked>
+<input type="radio" name="tab" id="tab-versements">
+<input type="radio" name="tab" id="tab-retraits">
+<input type="radio" name="tab" id="tab-membres">
+<input type="radio" name="tab" id="tab-archives">
+<input type="radio" name="tab" id="tab-alertes">
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">CAISSE RONKALA OROUNGOU</div>
+      <div class="motto">Solidarité – Transparence – Avenir</div>
+    </div>
+
+    <nav class="nav">
+      <label for="tab-dashboard">🏠 Tableau de bord</label>
+      <label for="tab-versements">💰 Versements</label>
+      <label for="tab-retraits">🏦 Retraits</label>
+      <label for="tab-membres">👨‍👩‍👧 Membres</label>
+      <label for="tab-archives">📅 Archives</label>
+      <label for="tab-alertes">🔔 Alertes</label>
+    </nav>
+
+    <div class="security-note">
+      Aucune donnée bancaire sensible n’est enregistrée.
+    </div>
+  </aside>
+
+  <main class="content">
+    <section class="panel panel-dashboard">
+      <h1>Tableau de bord</h1>
+
+      <div class="stats">
+        <article class="card stat">
+          <span>Solde de la caisse</span>
+          <strong>74 000 FCFA</strong>
+        </article>
+        <article class="card stat">
+          <span>Total des versements</span>
+          <strong>83 000 FCFA</strong>
+        </article>
+        <article class="card stat">
+          <span>Retraits validés</span>
+          <strong>9 000 FCFA</strong>
+        </article>
+        <article class="card stat">
+          <span>Demandes en attente</span>
+          <strong>2</strong>
+        </article>
+      </div>
+
+      <div class="two-columns">
+        <article class="card">
+          <h2>Fonctionnement</h2>
+          <p>L’application sert uniquement au suivi familial des mouvements de la caisse.</p>
+          <div class="notice">
+            Aucun numéro de compte, identifiant bancaire ou mot de passe ne doit être saisi.
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Organisation</h2>
+          <p><strong>Trésorière :</strong> Nelly</p>
+          <p>Les membres peuvent consulter les mouvements. La trésorière confirme les dépôts reçus et les versements enregistrés.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel panel-versements">
+      <h1>Versements</h1>
+
+      <div class="two-columns">
+        <article class="card">
+          <h2>Nouveau versement</h2>
+
+          <form>
+            <label>Membre
+              <select>
+                <option>Edan</option><option>Éric</option><option>Franck</option>
+                <option>Nelly</option><option>Julio</option><option>David</option>
+                <option>Georges</option><option>Calvin</option><option>Malvina</option>
+              </select>
+            </label>
+
+            <label>Montant
+              <input type="number" placeholder="Ex. 10 000">
+            </label>
+
+            <label>Date
+              <input type="date">
+            </label>
+
+            <label>Motif
+              <select>
+                <option>Contribution mensuelle</option>
+                <option>Autre</option>
+              </select>
+            </label>
+
+            <label>Mode de versement
+              <select>
+                <option>Comptoir bancaire</option>
+                <option>Transfert à la trésorière</option>
+              </select>
+            </label>
+
+            <label>Justificatif du transfert
+              <input type="file" accept="image/*,.pdf">
+            </label>
+
+            <button type="button">Enregistrer le versement</button>
+          </form>
+
+          <p class="helper">Le justificatif concerne uniquement le transfert vers la trésorière. Il ne doit pas contenir d’identifiants bancaires sensibles.</p>
+        </article>
+
+        <article class="card">
+          <h2>Versements récents</h2>
+          <div class="table-wrap">
+            <table class="compact-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Membre</th>
+                  <th>Mode</th>
+                  <th>Justificatif</th>
+                  <th class="amount">Montant</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>05/07/2026</td>
+                  <td>Edan</td>
+                  <td>Transfert à la trésorière</td>
+                  <td>Reçu joint</td>
+                  <td class="amount">20 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>03/07/2026</td>
+                  <td>Georges</td>
+                  <td>Comptoir bancaire</td>
+                  <td>—</td>
+                  <td class="amount">10 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>10/06/2026</td>
+                  <td>Nelly</td>
+                  <td>Comptoir bancaire</td>
+                  <td>—</td>
+                  <td class="amount">10 000 FCFA</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel panel-retraits">
+      <h1>Retraits</h1>
+
+      <div class="two-columns">
+        <article class="card">
+          <h2>Nouvelle demande</h2>
+          <form>
+            <label>Membre demandeur
+              <select>
+                <option>Edan</option><option>Éric</option><option>Franck</option>
+                <option>Nelly</option><option>Julio</option><option>David</option>
+                <option>Georges</option><option>Calvin</option><option>Malvina</option>
+              </select>
+            </label>
+
+            <label>Montant demandé
+              <input type="number" placeholder="Ex. 5 000">
+            </label>
+
+            <label>Date
+              <input type="date">
+            </label>
+
+            <label>Motif
+              <select>
+                <option>Rentrée scolaire</option>
+                <option>Maladie</option>
+                <option>Décès</option>
+                <option>Mariage</option>
+                <option>Baptême</option>
+                <option>Autre</option>
+              </select>
+            </label>
+
+            <button type="button">Enregistrer la demande</button>
+          </form>
+
+          <p class="helper">Une demande en attente ne réduit pas le solde. Seul un retrait validé est déduit.</p>
+        </article>
+
+        <article class="card">
+          <h2>Historique</h2>
+          <div class="table-wrap">
+            <table class="compact-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Membre</th>
+                  <th>Motif</th>
+                  <th>Statut</th>
+                  <th class="amount">Montant</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>20/06/2026</td>
+                  <td>Edan</td>
+                  <td>Maladie</td>
+                  <td><span class="badge validated">Validé</span></td>
+                  <td class="amount">5 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>14/07/2026</td>
+                  <td>Georges</td>
+                  <td>Rentrée scolaire</td>
+                  <td><span class="badge validated">Validé</span></td>
+                  <td class="amount">4 000 FCFA</td>
+                </tr>
+                <tr>
+                  <td>18/07/2026</td>
+                  <td>Julio</td>
+                  <td>Maladie</td>
+                  <td><span class="badge pending">En attente</span></td>
+                  <td class="amount">3 000 FCFA</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel panel-membres">
+      <h1>Membres</h1>
+      <article class="card">
+        <div class="table-wrap">
+          <table class="compact-table">
+            <thead>
+              <tr>
+                <th>Membre</th>
+                <th>Rôle</th>
+                <th class="amount">Total versé</th>
+                <th class="amount">Retraits validés</th>
+                <th class="amount">Solde personnel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Edan</td><td><span class="role">Membre</span></td><td class="amount">40 000 FCFA</td><td class="amount">5 000 FCFA</td><td class="amount">35 000 FCFA</td></tr>
+              <tr><td>Nelly</td><td><span class="role">Trésorière</span></td><td class="amount">10 000 FCFA</td><td class="amount">0 FCFA</td><td class="amount">10 000 FCFA</td></tr>
+              <tr><td>Georges</td><td><span class="role">Membre</span></td><td class="amount">25 000 FCFA</td><td class="amount">4 000 FCFA</td><td class="amount">21 000 FCFA</td></tr>
+              <tr><td>Julio</td><td><span class="role">Membre</span></td><td class="amount">8 000 FCFA</td><td class="amount">0 FCFA</td><td class="amount">8 000 FCFA</td></tr>
+              <tr><td>Éric</td><td><span class="role">Membre</span></td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td></tr>
+              <tr><td>Franck</td><td><span class="role">Membre</span></td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td></tr>
+              <tr><td>David</td><td><span class="role">Membre</span></td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td></tr>
+              <tr><td>Calvin</td><td><span class="role">Membre</span></td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td></tr>
+              <tr><td>Malvina</td><td><span class="role">Membre</span></td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td><td class="amount">0 FCFA</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel panel-archives">
+      <h1>Archives mensuelles</h1>
+
+      <details class="card archive" open>
+        <summary>Juillet 2026</summary>
+        <p>Versements : <strong>38 000 FCFA</strong></p>
+        <p>Retraits validés : <strong>4 000 FCFA</strong></p>
+        <p>Demandes en attente : <strong>2</strong></p>
+      </details>
+
+      <details class="card archive">
+        <summary>Juin 2026</summary>
+        <p>Versements : <strong>45 000 FCFA</strong></p>
+        <p>Retraits validés : <strong>5 000 FCFA</strong></p>
+        <p>Demandes en attente : <strong>0</strong></p>
+      </details>
+    </section>
+
+    <section class="panel panel-alertes">
+      <h1>Alertes</h1>
+      <article class="card">
+        <div class="alert">🟡 Deux demandes de retrait sont en attente de validation.</div>
+        <div class="alert">ℹ️ Edan a effectué deux demandes sur la période enregistrée.</div>
+        <div class="notice">Les alertes sont informatives. Aucun graphique ni classement entre les membres.</div>
+      </article>
+    </section>
+  </main>
+</div>
+</body>
+</html>
