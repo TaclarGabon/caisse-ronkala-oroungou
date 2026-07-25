@@ -32,3 +32,18 @@ Les photos sont intégrées directement dans `app.js`. Il ne faut plus téléver
 - Photo d’Oroungou Yvette (maman) en haut à droite de l’écran de connexion.
 - Les neuf profils restent en dessous.
 - Photo intégrée directement aux pages HTML.
+
+## Version V4.2
+Ordre des membres corrigé selon le droit d’aînesse : Georges, Edan, Davy, Éric, Franck, Nelly, Julio, Malvina, Calvin.
+
+
+## Nouveautés V4.2 finale
+- Vue d’ensemble familiale affichée dès le tableau de bord.
+- Total versé par membre visible immédiatement.
+- Statuts harmonisés : « Connecté » et « Se connecter ».
+- Cotisation mensuelle minimale obligatoire de 5 000 FCFA.
+- Refus automatique de tout versement inférieur à 5 000 FCFA.
+- Seuil de sécurité de 500 000 FCFA avant toute demande de prêt.
+- Nouveau motif « Prêt » dans les demandes.
+- Onglet « Conditions / Règlement ».
+- Plafond maximal du prêt signalé comme règle encore en discussion.
