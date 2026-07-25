@@ -1,30 +1,24 @@
-# CAISSE RONKALA OROUNGOU — V2 fonctionnelle
+# CAISSE RONKALA OROUNGOU — V3
 
 ## Pages
+- `index.html` : version réelle, vide au départ.
+- `demo.html` : version de démonstration.
 
-- `index.html` : version réelle, chiffres à zéro au départ, saisie des montants active.
-- `demo.html` : version démo avec chiffres fictifs.
+## Connexion
+Cliquez sur la photo d’un membre puis saisissez le code initial : `1234`.
 
-## Fonctionnalités actives
+## Fonctionnalités
+- 9 profils avec les vraies photos
+- versements et retraits
+- vote anonyme, une voix par membre
+- majorité automatique à 5 voix
+- paiement confirmé par Nelly après acceptation
+- export Excel `.xlsx`
+- sauvegarde JSON
+- réinitialisation avec confirmation
 
-- Ajouter un versement
-- Ajouter une demande de retrait
-- Calcul automatique du solde
-- Calcul par membre
-- Compteur des demandes en attente
-- Sauvegarde dans le navigateur avec `localStorage`
-- Export des données au format JSON
-- Remise à zéro avec confirmation
+## Limite actuelle
+Les données restent sur le navigateur utilisé. Firebase sera nécessaire pour une vraie connexion sécurisée et une synchronisation entre tous les téléphones.
 
-## Important
-
-Les données de cette version sont enregistrées uniquement dans le navigateur utilisé.
-
-Elles ne sont pas encore partagées entre plusieurs téléphones ou ordinateurs.
-
-Firebase sera nécessaire pour :
-- la synchronisation familiale ;
-- l'authentification ;
-- les rôles ;
-- les justificatifs partagés ;
-- la sauvegarde centralisée.
+## Publication GitHub
+Téléversez tous les fichiers et le dossier `assets` à la racine du dépôt, puis attendez le redéploiement de GitHub Pages.

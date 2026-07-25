@@ -1,143 +1,48 @@
-
-const members = ["Edan","Éric","Franck","Nelly","Julio","David","Georges","Calvin","Malvina"];
-const mode = document.body.dataset.mode;
-const key = mode === "demo" ? "ronkala_demo_v3" : "ronkala_real_v3";
-
-const demoData = {
-  contributions: [
-    {date:"2026-07-05", member:"Edan", mode:"Transfert à la trésorière", proof:"Reçu joint", amount:20000},
-    {date:"2026-07-03", member:"Georges", mode:"Comptoir bancaire", proof:"—", amount:10000},
-    {date:"2026-06-10", member:"Nelly", mode:"Comptoir bancaire", proof:"—", amount:10000},
-    {date:"2026-06-02", member:"Edan", mode:"Transfert à la trésorière", proof:"Reçu joint", amount:20000},
-    {date:"2026-05-15", member:"Georges", mode:"Comptoir bancaire", proof:"—", amount:15000},
-    {date:"2026-05-08", member:"Julio", mode:"Transfert à la trésorière", proof:"Reçu joint", amount:8000}
-  ],
-  withdrawals: [
-    {date:"2026-06-20", member:"Edan", reason:"Maladie", status:"Validé", amount:5000},
-    {date:"2026-07-14", member:"Georges", reason:"Rentrée scolaire", status:"Validé", amount:4000},
-    {date:"2026-07-18", member:"Julio", reason:"Maladie", status:"En attente", amount:3000},
-    {date:"2026-07-19", member:"Éric", reason:"Autre", status:"En attente", amount:2000}
-  ]
-};
-
-function emptyData(){ return {contributions:[], withdrawals:[]}; }
-
-function load(){
-  const saved = localStorage.getItem(key);
-  if(saved) return JSON.parse(saved);
-  const initial = mode === "demo" ? demoData : emptyData();
-  localStorage.setItem(key, JSON.stringify(initial));
-  return JSON.parse(JSON.stringify(initial));
-}
-
-let data = load();
-
-function save(){
-  localStorage.setItem(key, JSON.stringify(data));
-  render();
-}
-
-function money(n){
-  return new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
-}
-
-function formatDate(iso){
-  if(!iso) return "";
-  const [y,m,d]=iso.split("-");
-  return `${d}/${m}/${y}`;
-}
-
-function render(){
-  const totalC = data.contributions.reduce((s,x)=>s+Number(x.amount),0);
-  const validW = data.withdrawals.filter(x=>x.status==="Validé").reduce((s,x)=>s+Number(x.amount),0);
-  const pending = data.withdrawals.filter(x=>x.status==="En attente").length;
-
-  document.getElementById("totalContributions").textContent = money(totalC);
-  document.getElementById("totalWithdrawals").textContent = money(validW);
-  document.getElementById("balance").textContent = money(totalC-validW);
-  document.getElementById("pendingCount").textContent = pending;
-
-  const cBody = document.getElementById("contributionRows");
-  cBody.innerHTML = data.contributions.length ? data.contributions.slice().reverse().map(x=>`
-    <tr><td>${formatDate(x.date)}</td><td>${x.member}</td><td>${x.mode}</td><td>${x.proof || "—"}</td><td class="amount">${money(x.amount)}</td></tr>
-  `).join("") : '<tr><td colspan="5" class="empty">Aucun versement enregistré.</td></tr>';
-
-  const wBody = document.getElementById("withdrawalRows");
-  wBody.innerHTML = data.withdrawals.length ? data.withdrawals.slice().reverse().map(x=>`
-    <tr><td>${formatDate(x.date)}</td><td>${x.member}</td><td>${x.reason}</td><td><span class="badge ${x.status==="Validé"?"ok":"wait"}">${x.status}</span></td><td class="amount">${money(x.amount)}</td></tr>
-  `).join("") : '<tr><td colspan="5" class="empty">Aucune demande enregistrée.</td></tr>';
-
-  const memberRows = document.getElementById("memberRows");
-  memberRows.innerHTML = members.map(m=>{
-    const paid = data.contributions.filter(x=>x.member===m).reduce((s,x)=>s+Number(x.amount),0);
-    const taken = data.withdrawals.filter(x=>x.member===m && x.status==="Validé").reduce((s,x)=>s+Number(x.amount),0);
-    const role = m==="Nelly" ? "Trésorière" : "Membre";
-    return `<tr><td>${m}</td><td><span class="role">${role}</span></td><td class="amount">${money(paid)}</td><td class="amount">${money(taken)}</td><td class="amount">${money(paid-taken)}</td></tr>`;
-  }).join("");
-
-  document.getElementById("alertText").textContent = pending ? `${pending} demande(s) de retrait en attente.` : "Aucune alerte.";
-}
-
-document.getElementById("contributionForm").addEventListener("submit", e=>{
-  e.preventDefault();
-  const amount = Number(document.getElementById("cAmount").value);
-  if(!amount || amount <= 0) return alert("Veuillez saisir un montant valide.");
-  data.contributions.push({
-    member: document.getElementById("cMember").value,
-    amount,
-    date: document.getElementById("cDate").value,
-    reason: document.getElementById("cReason").value,
-    mode: document.getElementById("cMode").value,
-    proof: document.getElementById("cProof").value.trim() || "—"
-  });
-  e.target.reset();
-  setToday();
-  save();
-  alert("Versement enregistré.");
-});
-
-document.getElementById("withdrawalForm").addEventListener("submit", e=>{
-  e.preventDefault();
-  const amount = Number(document.getElementById("wAmount").value);
-  if(!amount || amount <= 0) return alert("Veuillez saisir un montant valide.");
-  data.withdrawals.push({
-    member: document.getElementById("wMember").value,
-    amount,
-    date: document.getElementById("wDate").value,
-    reason: document.getElementById("wReason").value,
-    status: document.getElementById("wStatus").value
-  });
-  e.target.reset();
-  setToday();
-  save();
-  alert("Demande enregistrée.");
-});
-
-document.getElementById("resetBtn").addEventListener("click", ()=>{
-  if(document.getElementById("confirmReset").value.trim() !== "CONFIRMER"){
-    return alert("Tapez CONFIRMER pour autoriser la remise à zéro.");
-  }
-  data = emptyData();
-  save();
-  document.getElementById("confirmReset").value = "";
-  alert("Les données ont été remises à zéro.");
-});
-
-document.getElementById("exportBtn").addEventListener("click", ()=>{
-  const blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `caisse-ronkala-${mode}-${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-});
-
-function setToday(){
-  const today = new Date().toISOString().slice(0,10);
-  document.getElementById("cDate").value = today;
-  document.getElementById("wDate").value = today;
-}
-
-setToday();
-render();
+const MEMBERS=[
+{id:'georges',name:'Georges',role:'Président',photo:'assets/members/georges.jpg'},
+{id:'edan',name:'Edan',role:'Membre',photo:'assets/members/edan.jpg'},
+{id:'eric',name:'Éric',role:'Membre',photo:'assets/members/eric.jpg'},
+{id:'franck',name:'Franck',role:'Membre',photo:'assets/members/franck.jpg'},
+{id:'julio',name:'Julio',role:'Membre',photo:'assets/members/julio.jpg'},
+{id:'davy',name:'Davy',role:'Membre',photo:'assets/members/davy.jpg'},
+{id:'calvin',name:'Calvin',role:'Membre',photo:'assets/members/calvin.jpg'},
+{id:'malvina',name:'Malvina',role:'Membre',photo:'assets/members/malvina.jpg'},
+{id:'nelly',name:'Nelly',role:'Trésorière',photo:'assets/members/nelly.jpg'}];
+const mode=document.body.dataset.mode, DATA_KEY=`ronkala_v3_${mode}`, PIN_KEY=`ronkala_v3_pins_${mode}`, SESSION_KEY=`ronkala_v3_session_${mode}`, MAJORITY=5;
+const $=id=>document.getElementById(id), memberOf=id=>MEMBERS.find(m=>m.id===id), nameOf=id=>memberOf(id)?.name||id;
+const emptyData=()=>({contributions:[],withdrawals:[]});
+const demoData={contributions:[
+{id:1,date:'2026-07-02',member:'georges',reason:'Contribution mensuelle',mode:'Comptoir bancaire',proof:'Reçu 001',amount:50000},
+{id:2,date:'2026-07-03',member:'nelly',reason:'Contribution mensuelle',mode:'Transfert à la trésorière',proof:'Capture',amount:50000},
+{id:3,date:'2026-07-05',member:'edan',reason:'Contribution mensuelle',mode:'Transfert à la trésorière',proof:'Capture',amount:30000}],withdrawals:[
+{id:101,date:'2026-07-12',member:'julio',reason:'Maladie',note:'Achat de médicaments',amount:25000,status:'En vote',paid:false,votes:{georges:'yes',nelly:'yes',edan:'yes'}},
+{id:102,date:'2026-06-18',member:'malvina',reason:'Rentrée scolaire',note:'Fournitures',amount:40000,status:'Acceptée',paid:true,votes:{georges:'yes',nelly:'yes',edan:'yes',franck:'yes',julio:'yes'}}]};
+function getPins(){let p=JSON.parse(localStorage.getItem(PIN_KEY)||'null');if(!p){p={};MEMBERS.forEach(m=>p[m.id]='1234');localStorage.setItem(PIN_KEY,JSON.stringify(p));}return p}
+function loadData(){let d=JSON.parse(localStorage.getItem(DATA_KEY)||'null');if(!d){d=mode==='demo'?structuredClone(demoData):emptyData();localStorage.setItem(DATA_KEY,JSON.stringify(d));}return d}
+let data=loadData(), selectedMember=null, currentMember=null;
+function money(n){return new Intl.NumberFormat('fr-FR').format(Number(n)||0)+' FCFA'}
+function formatDate(iso){if(!iso)return'';const [y,m,d]=iso.split('-');return `${d}/${m}/${y}`}
+function save(){localStorage.setItem(DATA_KEY,JSON.stringify(data));render()}
+function setToday(){const t=new Date().toISOString().slice(0,10);$('cDate').value=t;$('wDate').value=t}
+function statusOf(w){const v=Object.values(w.votes||{}),yes=v.filter(x=>x==='yes').length,no=v.filter(x=>x==='no').length;if(yes>=MAJORITY)return'Acceptée';if(no>=MAJORITY)return'Refusée';return'En vote'}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id))}
+function openPin(id){selectedMember=id;$('pinTitle').textContent=`Connexion de ${nameOf(id)}`;$('pinInput').value='';$('pinBox').classList.remove('hidden');$('pinInput').focus()}
+function enterApp(id){currentMember=memberOf(id);sessionStorage.setItem(SESSION_KEY,id);$('loginPage').classList.add('hidden');$('app').classList.remove('hidden');$('sidePhoto').src=currentMember.photo;$('chipPhoto').src=currentMember.photo;$('sideName').textContent=currentMember.name;$('sideRole').textContent=currentMember.role;$('chipName').textContent=currentMember.name;$('hello').textContent=`Bonjour ${currentMember.name} 👋`;$('cMember').value=id;$('wMember').value=id;render()}
+function initLogin(){$('memberGrid').innerHTML=MEMBERS.map(m=>`<article class="member-card"><img src="${m.photo}" alt="Photo de ${m.name}"><strong>${m.name}</strong><span>${m.role}</span><button data-login="${m.id}">Se connecter</button></article>`).join('');document.querySelectorAll('[data-login]').forEach(b=>b.onclick=()=>openPin(b.dataset.login));const s=sessionStorage.getItem(SESSION_KEY);if(s&&memberOf(s))enterApp(s)}
+$('pinCancel').onclick=()=>$('pinBox').classList.add('hidden');$('pinGo').onclick=()=>{if($('pinInput').value!==getPins()[selectedMember])return alert('Code incorrect.');$('pinBox').classList.add('hidden');enterApp(selectedMember)};$('pinInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('pinGo').click()});
+$('logoutBtn').onclick=()=>{sessionStorage.removeItem(SESSION_KEY);location.reload()};document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));document.querySelectorAll('.jump').forEach(b=>b.onclick=()=>showPage(b.dataset.target));
+function render(){if(!currentMember)return;data.withdrawals.forEach(w=>w.status=statusOf(w));const totalC=data.contributions.reduce((s,x)=>s+Number(x.amount),0),paidW=data.withdrawals.filter(w=>w.paid).reduce((s,x)=>s+Number(x.amount),0);$('balance').textContent=money(totalC-paidW);$('totalContributions').textContent=money(totalC);$('totalWithdrawals').textContent=money(paidW);$('openVotes').textContent=data.withdrawals.filter(w=>w.status==='En vote').length;
+$('contributionRows').innerHTML=data.contributions.length?data.contributions.slice().reverse().map(x=>`<tr><td>${formatDate(x.date)}</td><td>${nameOf(x.member)}</td><td>${x.mode}</td><td>${x.proof||'—'}</td><td class="amount">${money(x.amount)}</td></tr>`).join(''):'<tr><td colspan="5">Aucun versement.</td></tr>';
+$('withdrawalRows').innerHTML=data.withdrawals.length?data.withdrawals.slice().reverse().map(w=>{const cls=w.paid?'paid':w.status==='Acceptée'?'ok':w.status==='Refusée'?'no':'wait';const action=currentMember.id==='nelly'&&w.status==='Acceptée'&&!w.paid?`<button class="secondary pay-btn" data-id="${w.id}">Marquer payé</button>`:'—';return`<tr><td>${formatDate(w.date)}</td><td>${nameOf(w.member)}</td><td>${w.reason}</td><td><span class="badge ${cls}">${w.paid?'Payé':w.status}</span></td><td class="amount">${money(w.amount)}</td><td>${action}</td></tr>`}).join(''):'<tr><td colspan="6">Aucune demande.</td></tr>';document.querySelectorAll('.pay-btn').forEach(b=>b.onclick=()=>markPaid(Number(b.dataset.id)));
+$('voteList').innerHTML=data.withdrawals.length?data.withdrawals.slice().reverse().map(renderVoteCard).join(''):'<div class="card">Aucun vote.</div>';document.querySelectorAll('[data-vote]').forEach(b=>b.onclick=()=>castVote(Number(b.dataset.id),b.dataset.vote));
+$('membersList').innerHTML=MEMBERS.map(m=>{const paid=data.contributions.filter(x=>x.member===m.id).reduce((s,x)=>s+Number(x.amount),0);return`<article class="card member-list-card"><img src="${m.photo}"><div><strong>${m.name}</strong><div class="small">${m.role}</div><div class="helper">Versements : ${money(paid)}</div></div></article>`}).join('')}
+function renderVoteCard(w){const votes=w.votes||{},cast=Object.keys(votes).length,remaining=MEMBERS.length-cast,yes=Object.values(votes).filter(v=>v==='yes').length,no=Object.values(votes).filter(v=>v==='no').length,closed=w.status!=='En vote',already=!!votes[currentMember.id],pct=Math.round(cast/MEMBERS.length*100);const result=closed?`<div class="actions"><span class="badge ok">Oui : ${yes}</span><span class="badge no">Non : ${no}</span></div>`:`<div class="helper">${cast} membre(s) ont voté · ${remaining} vote(s) restant(s)</div>`;let actions='';if(!closed&&!already)actions=`<div class="vote-actions"><button class="yes-btn" data-id="${w.id}" data-vote="yes">Oui, j'accepte</button><button class="no-btn" data-id="${w.id}" data-vote="no">Non, je refuse</button></div>`;else if(!closed&&already)actions='<div class="notice">Ton vote a été enregistré. Son choix reste confidentiel.</div>';return`<article class="card vote-card"><div class="vote-head"><div><div class="vote-title">${nameOf(w.member)} — ${money(w.amount)}</div><div class="vote-meta">${w.reason} · ${formatDate(w.date)}${w.note?' · '+w.note:''}</div></div><span class="badge ${closed?(w.status==='Acceptée'?'ok':'no'):'wait'}">${w.status}</span></div><div class="vote-progress"><span style="width:${pct}%"></span></div>${result}${actions}</article>`}
+function castVote(id,choice){const w=data.withdrawals.find(x=>x.id===id);if(!w||w.status!=='En vote')return;w.votes=w.votes||{};if(w.votes[currentMember.id])return alert('Tu as déjà voté.');w.votes[currentMember.id]=choice;save();alert('Vote enregistré de manière confidentielle.')}
+function markPaid(id){const w=data.withdrawals.find(x=>x.id===id);if(!w||w.status!=='Acceptée')return;if(confirm('Confirmer que la trésorière a effectué ce paiement ?')){w.paid=true;save()}}
+$('contributionForm').onsubmit=e=>{e.preventDefault();const amount=Number($('cAmount').value);if(amount<=0)return alert('Montant invalide.');data.contributions.push({id:Date.now(),date:$('cDate').value,member:$('cMember').value,reason:$('cReason').value,mode:$('cMode').value,proof:$('cProof').value.trim(),amount});e.target.reset();setToday();$('cMember').value=currentMember.id;save();alert('Versement enregistré.')};
+$('withdrawalForm').onsubmit=e=>{e.preventDefault();const amount=Number($('wAmount').value);if(amount<=0)return alert('Montant invalide.');data.withdrawals.push({id:Date.now(),date:$('wDate').value,member:$('wMember').value,reason:$('wReason').value,note:$('wNote').value.trim(),amount,status:'En vote',paid:false,votes:{}});e.target.reset();setToday();$('wMember').value=currentMember.id;save();showPage('votes');alert('Demande soumise au vote.')};
+$('changePinBtn').onclick=()=>{const pin=$('newPin').value.trim();if(!/^\d{4}$/.test(pin))return alert('Le code doit contenir exactement 4 chiffres.');const pins=getPins();pins[currentMember.id]=pin;localStorage.setItem(PIN_KEY,JSON.stringify(pins));$('newPin').value='';alert('Code modifié.')};
+$('resetBtn').onclick=()=>{if(confirm('Effacer toutes les données de cette version sur cet appareil ?')){data=emptyData();localStorage.setItem(DATA_KEY,JSON.stringify(data));render();alert('Toutes les données ont été effacées.')}};
+$('jsonBtn').onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`ronkala-${mode}-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(a.href)};
+$('excelBtn').onclick=()=>{if(typeof XLSX==='undefined')return alert('Le module Excel n’a pas pu être chargé. Vérifie la connexion Internet.');const wb=XLSX.utils.book_new(),contrib=data.contributions.map(x=>({Date:x.date,Membre:nameOf(x.member),Motif:x.reason,Mode:x.mode,Justificatif:x.proof||'',Montant:x.amount})),withdraw=data.withdrawals.map(w=>({Date:w.date,Demandeur:nameOf(w.member),Motif:w.reason,Précisions:w.note||'',Montant:w.amount,Statut:w.status,Paiement:w.paid?'Payé':'Non payé',Oui:Object.values(w.votes||{}).filter(v=>v==='yes').length,Non:Object.values(w.votes||{}).filter(v=>v==='no').length})),summary=MEMBERS.map(m=>({Membre:m.name,Rôle:m.role,Versements:data.contributions.filter(x=>x.member===m.id).reduce((s,x)=>s+Number(x.amount),0),Retraits_payés:data.withdrawals.filter(w=>w.member===m.id&&w.paid).reduce((s,x)=>s+Number(x.amount),0)}));XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(contrib),'Versements');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(withdraw),'Retraits et votes');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(summary),'Résumé membres');XLSX.writeFile(wb,`rapport-caisse-ronkala-${new Date().toISOString().slice(0,10)}.xlsx`)};
+const opts=MEMBERS.map(m=>`<option value="${m.id}">${m.name}</option>`).join('');$('cMember').innerHTML=opts;$('wMember').innerHTML=opts;setToday();initLogin();
