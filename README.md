@@ -22,3 +22,13 @@ Les données restent sur le navigateur utilisé. Firebase sera nécessaire pour 
 
 ## Publication GitHub
 Téléversez tous les fichiers et le dossier `assets` à la racine du dépôt, puis attendez le redéploiement de GitHub Pages.
+
+
+## Correctif V3.1
+Les photos sont intégrées directement dans `app.js`. Il ne faut plus téléverser de dossier `assets`. Remplacez simplement `index.html`, `demo.html`, `style.css`, `app.js` et `README.md`.
+
+
+## V3.2
+- Photo d’Oroungou Yvette (maman) en haut à droite de l’écran de connexion.
+- Les neuf profils restent en dessous.
+- Photo intégrée directement aux pages HTML.
