@@ -47,3 +47,9 @@ Ordre des membres corrigé selon le droit d’aînesse : Georges, Edan, Davy, É
 - Nouveau motif « Prêt » dans les demandes.
 - Onglet « Conditions / Règlement ».
 - Plafond maximal du prêt signalé comme règle encore en discussion.
+
+
+## V4.4 — Historique personnel
+- L’historique des versements est filtré sur le membre connecté.
+- L’historique des retraits est filtré sur le membre connecté.
+- Les données globales restent visibles dans le tableau de bord et les rapports.
