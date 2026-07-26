@@ -1,4 +1,4 @@
-# Caisse Ronkala Oroungou — V4.5
+# Caisse Ronkala Oroungou — V4.5.1
 
 ## Ajouts
 - Confirmation avant enregistrement d’un versement avec **OK / Annuler**.
