@@ -39,3 +39,5 @@ aside .mode{margin:0 0 18px}
 
 /* V4.3.2 — statut de connexion des membres */
 .dashboard-grid table td:nth-child(2),.dashboard-grid table td:nth-child(3){white-space:nowrap}
+
+.member-card button.is-online{background:#0f7a57;box-shadow:0 0 0 3px rgba(28,190,126,.16),0 0 18px rgba(28,190,126,.42);display:flex;align-items:center;justify-content:center;gap:9px}.online-light,.status-light{display:inline-block;width:11px;height:11px;border-radius:50%;background:#54f2a6;border:2px solid #eafff3;box-shadow:0 0 0 3px rgba(84,242,166,.22),0 0 11px 4px rgba(84,242,166,.75);vertical-align:-1px;animation:presenceGlow 1.8s ease-in-out infinite}.status-light{width:8px;height:8px;margin-right:6px;border-width:1px;box-shadow:0 0 0 2px rgba(84,242,166,.20),0 0 8px 3px rgba(84,242,166,.65)}@keyframes presenceGlow{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.72;transform:scale(.86)}}@media (prefers-reduced-motion:reduce){.online-light,.status-light{animation:none}}
