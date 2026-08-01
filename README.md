@@ -1,24 +1,7 @@
-# CAISSE RONKALA OROUNGOU — V4.2
+# Caisse familiale Ronkala Oroungou — V4.3.1
 
-## Nouveautés
-- Cotisation minimale de 5 000 FCFA.
-- Vue d’ensemble de tous les membres.
-- Calendrier annuel affichant 5 000 FCFA pour chaque mois couvert, y compris sur l’année suivante.
-- Validation des cotisations par Nelly, Trésorière.
-- Statuts : en attente, confirmé par Nelly, refusé.
-- Espace réservé à la Trésorière.
-- Seuil de 500 000 FCFA pour les prêts ordinaires.
-- Votes clôturés visibles pendant 30 jours puis archivés.
-- Onglet Conditions générales.
-- Export Excel enrichi.
-
-## Important
-Cette version sauvegarde les données dans le navigateur. Pour que Nelly reçoive et confirme les opérations depuis un autre téléphone en temps réel, il faudra connecter Firebase.
-
-
-## Version 4.3
-- En-tête du tableau de bord simplifié autour du message de bienvenue.
-- Identité répétée supprimée en haut de la barre latérale.
-- Blocs Accès rapide et Résumé visuel absents.
-- Vue générale des membres et Activité récente agrandies.
-- Toutes les fonctions de validation trésorière, historique, conditions et rapports sont conservées.
+Correctif de la V4.3 :
+- retour des trois actions rapides sur le tableau de bord ;
+- alerte visible lorsqu’une ou plusieurs demandes attendent un vote ;
+- badge numérique dans le menu Votes et sur le raccourci Voter ;
+- conservation de la validation des versements par la Trésorière.

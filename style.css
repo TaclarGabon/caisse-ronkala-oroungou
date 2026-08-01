@@ -23,3 +23,16 @@ aside .mode{margin:0 0 18px}
 .dashboard-grid .table-wrap{max-height:360px}
 .dashboard-grid .activity-list{max-height:360px;overflow:auto;padding-right:4px}
 @media(max-width:900px){.dashboard-grid{grid-template-columns:1fr}.dashboard-grid>.card{min-height:auto}}
+
+/* V4.3.1 — raccourcis et alertes de vote */
+.quick-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:13px}
+.quick-action{position:relative;display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--line);border-radius:15px;padding:15px;background:#fff;box-shadow:0 7px 18px rgba(18,70,52,.055);color:var(--text)}
+.quick-action>span{display:grid;place-items:center;width:46px;height:46px;border-radius:13px;font-size:23px;flex:0 0 auto}
+.quick-action strong{display:block;font-size:15px}.quick-action small{display:block;margin-top:4px;color:var(--muted)}
+.quick-action.contribution>span{background:#e7f5ee}.quick-action.loan>span{background:#e9edff}.quick-action.vote>span{background:#fff1c9}
+.quick-action:hover{transform:translateY(-1px);border-color:#b8cec4}
+.quick-vote-badge{position:absolute;right:12px;top:10px;display:grid;place-items:center;min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:#d92d20;color:#fff;font-size:11px}
+.vote-alert{display:flex;align-items:center;gap:12px;margin-top:13px;padding:13px 15px;border:1px solid #f1c56b;border-left:6px solid #e5a817;border-radius:14px;background:#fff8e5;box-shadow:0 6px 16px rgba(121,82,0,.08)}
+.vote-alert-icon{font-size:25px;animation:bell-ring 1.8s ease-in-out infinite}.vote-alert div{flex:1}.vote-alert strong{display:block}.vote-alert div span{display:block;margin-top:3px;font-size:12px;color:#6f5a2a}.vote-alert button{border:0;border-radius:10px;padding:10px 13px;background:#126b51;color:#fff;font-weight:800}
+@keyframes bell-ring{0%,70%,100%{transform:rotate(0)}75%{transform:rotate(12deg)}80%{transform:rotate(-10deg)}85%{transform:rotate(7deg)}90%{transform:rotate(-5deg)}}
+@media(max-width:800px){.quick-actions{grid-template-columns:1fr}.vote-alert{align-items:flex-start;flex-wrap:wrap}.vote-alert button{width:100%}}
