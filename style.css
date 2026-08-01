@@ -36,3 +36,6 @@ aside .mode{margin:0 0 18px}
 .vote-alert-icon{font-size:25px;animation:bell-ring 1.8s ease-in-out infinite}.vote-alert div{flex:1}.vote-alert strong{display:block}.vote-alert div span{display:block;margin-top:3px;font-size:12px;color:#6f5a2a}.vote-alert button{border:0;border-radius:10px;padding:10px 13px;background:#126b51;color:#fff;font-weight:800}
 @keyframes bell-ring{0%,70%,100%{transform:rotate(0)}75%{transform:rotate(12deg)}80%{transform:rotate(-10deg)}85%{transform:rotate(7deg)}90%{transform:rotate(-5deg)}}
 @media(max-width:800px){.quick-actions{grid-template-columns:1fr}.vote-alert{align-items:flex-start;flex-wrap:wrap}.vote-alert button{width:100%}}
+
+/* V4.3.2 — statut de connexion des membres */
+.dashboard-grid table td:nth-child(2),.dashboard-grid table td:nth-child(3){white-space:nowrap}
