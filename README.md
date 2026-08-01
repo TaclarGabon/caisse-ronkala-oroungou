@@ -14,3 +14,11 @@
 
 ## Important
 Cette version sauvegarde les données dans le navigateur. Pour que Nelly reçoive et confirme les opérations depuis un autre téléphone en temps réel, il faudra connecter Firebase.
+
+
+## Version 4.3
+- En-tête du tableau de bord simplifié autour du message de bienvenue.
+- Identité répétée supprimée en haut de la barre latérale.
+- Blocs Accès rapide et Résumé visuel absents.
+- Vue générale des membres et Activité récente agrandies.
+- Toutes les fonctions de validation trésorière, historique, conditions et rapports sont conservées.

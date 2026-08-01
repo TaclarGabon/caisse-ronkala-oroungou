@@ -12,3 +12,14 @@ form label,.field-label{display:block;font-size:13px;font-weight:700;margin:10px
 @media(max-width:560px){.login-page{padding:0}.login-shell{border-radius:0;min-height:100vh}.login-head{padding:22px 18px}.family-header{gap:12px}.family-title{padding-top:5px}.mother-profile img{width:82px;height:82px;border-width:4px}.mother-profile span{font-size:11px}.mother-profile small{font-size:10px}.brand{font-size:24px}.member-grid{grid-template-columns:1fr 1fr;padding:0 18px 24px;gap:10px}.member-card img{width:84px;height:84px}main{padding:13px}.cards{grid-template-columns:1fr}.members-list{grid-template-columns:1fr}}
 
 .nav-badge{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;margin-left:6px;border-radius:999px;background:#fdb022;color:#402b00;font-size:10px;font-weight:900}.activity-list{display:grid;gap:8px}.activity-item{display:grid;grid-template-columns:85px 1fr;gap:9px;padding:9px 0;border-bottom:1px solid var(--line)}.activity-item span{font-size:11px;color:var(--muted)}.activity-item p{margin:0;font-size:13px}.validation-list{display:grid;gap:12px;margin-top:13px}.validation-card{display:flex;justify-content:space-between;align-items:center;gap:14px}.validation-card h2{margin:0 0 5px}.validation-card p{margin:0;color:var(--muted);font-size:13px}.year-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.year-btn{width:auto;margin:0;background:#e6eee9;color:var(--g);padding:9px 14px}.year-btn.active{background:var(--g);color:#fff}.calendar-table th,.calendar-table td{text-align:center;min-width:66px}.calendar-table th:first-child,.calendar-table td:first-child{text-align:left;position:sticky;left:0;background:#fff;z-index:1}.cal-paid{display:inline-block;padding:4px 5px;border-radius:7px;background:#e7f5ee;color:#176747;font-size:10px;font-weight:850}.conditions h2{font-size:16px;margin-top:18px}.conditions p{line-height:1.55;margin-top:5px}@media(max-width:700px){.validation-card{align-items:flex-start;flex-direction:column}.activity-item{grid-template-columns:72px 1fr}}
+
+
+/* V4.3 — tableau de bord simplifié */
+aside{padding-top:22px}
+aside .mode{margin:0 0 18px}
+.dashboard-grid{grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:18px;margin-top:18px}
+.dashboard-grid>.card{min-height:430px;padding:22px}
+.dashboard-grid h2{margin:0 0 18px;font-size:19px}
+.dashboard-grid .table-wrap{max-height:360px}
+.dashboard-grid .activity-list{max-height:360px;overflow:auto;padding-right:4px}
+@media(max-width:900px){.dashboard-grid{grid-template-columns:1fr}.dashboard-grid>.card{min-height:auto}}
