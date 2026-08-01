@@ -1,9 +1,10 @@
-# Caisse familiale Ronkala Oroungou — V4.3.3
+# CAISSE RONKALA OROUNGOU — V4.3.4
 
-Correctif de synchronisation locale de la validation trésorière :
-- relecture des versements enregistrés lorsque Nelly se connecte ;
-- actualisation automatique au retour sur l’onglet ou la fenêtre ;
-- actualisation entre deux onglets ouverts sur le même navigateur ;
-- conservation des alertes, raccourcis et statuts de connexion de la V4.3.2.
+Correctif de déploiement et de validation de la trésorière.
 
-Important : cette version partage les données entre les comptes utilisés dans le même navigateur et sur le même appareil. Une synchronisation entre plusieurs téléphones ou ordinateurs nécessite une base en ligne, par exemple Firebase.
+- `index.html` contient maintenant directement le CSS et le JavaScript : GitHub Pages ne peut plus charger un ancien `app.js` resté en cache.
+- Les versements en attente sont conservés dans la même base locale que la V4.3.3.
+- En se déconnectant d’Edan puis en se connectant à Nelly sur le même navigateur, la demande apparaît dans **Validation trésorière**.
+- Le numéro visible dans la barre latérale doit afficher **Version réelle V4.3.4**.
+
+Pour GitHub, remplacer au minimum `index.html`. Les autres fichiers sont laissés dans l’archive par compatibilité.
