@@ -1,15 +1,9 @@
-# Caisse familiale Ronkala Oroungou — V4.3.6
+# Caisse Ronkala Oroungou — V4.4.12
 
-Correctif de présence des membres :
-- la page de connexion affiche les membres actuellement connectés ;
-- le tableau de bord affiche tous les membres connectés, pas seulement le compte courant ;
-- synchronisation entre plusieurs onglets du même navigateur ;
-- déconnexion et expiration automatique des présences inactives.
-
-Important : sur GitHub Pages sans Firebase, cette présence est locale au navigateur. Pour voir les connexions entre téléphones et ordinateurs différents, une base en ligne comme Firebase est nécessaire.
-
-
-## V4.3.6
-- Ajout d’un voyant lumineux vert animé pour distinguer clairement les membres connectés sur la page de connexion.
-- Ajout du même repère lumineux dans la colonne Statut du tableau de bord.
-- Aucun changement fonctionnel par rapport à la V4.3.5.
+- « Activité récente » affiche uniquement les opérations officielles.
+- Une cotisation déclarée mais encore en attente n’ajoute plus de notification générale.
+- La suppression d’une cotisation en attente ne laisse plus de notification.
+- Les anciennes notifications de test, d’attente et de suppression sont nettoyées automatiquement.
+- Une cotisation confirmée par Nelly reste visible comme opération officielle.
+- Un refus de Nelly, une décision de vote clôturée et un paiement confirmé restent visibles.
+- Les données financières, historiques et exports Excel ne sont pas supprimés par ce nettoyage.
